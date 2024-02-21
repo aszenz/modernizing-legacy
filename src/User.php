@@ -6,10 +6,15 @@ class User
 {
     private $email = null;
 
-    public function __construct()
+    public function __construct(?string $userEmail = null)
     {
-        global $email;
-        $this->email = $email;
+        if(null !== $userEmail) {
+            $this->email = $userEmail;
+        }
+        else {
+            global $email;
+            $this->email = $email;
+        }
     }
 
     public function getUser(): string
