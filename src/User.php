@@ -32,4 +32,15 @@ class User
             return false;
         }
     }
+
+    public function getRole(): string
+    {
+        if ('admin' === $this->getUser() && $this->isKnown()) {
+            return 'ROLE_ADMIN';
+        } elseif ($this->isKnown()) {
+            return 'ROLE_USER';
+        } else {
+            return 'ROLE_UNKNOWN';
+        }
+    }
 }
