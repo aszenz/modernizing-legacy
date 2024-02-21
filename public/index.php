@@ -11,4 +11,4 @@ $email = $_GET['email'] ?? 'email';
 
 $user = new User();
 
-exit(sprintf("User '%s' has role %s", $user->getUser(), Role::getRole()));
+exit(sprintf("User '%s' has role %s", $user->getUser(), $user->getRole()));

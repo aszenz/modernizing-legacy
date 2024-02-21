@@ -46,9 +46,9 @@ class CharacterizationTest extends TestCase
     public function test_Role_role_returns_admin_for_admin_user() 
     {
         define('KNOWN_DOMAINS', ['example.com']);
-        global $email;
         $email = 'admin@example.com';
-        self::assertEquals('ROLE_ADMIN', Role::getRole());
+        $user = new User($email);
+        self::assertEquals('ROLE_ADMIN', $user->getRole());
     }
 
     /**
@@ -57,9 +57,9 @@ class CharacterizationTest extends TestCase
     public function test_Role_role_returns_user_for_other_user() 
     {
         define('KNOWN_DOMAINS', ['example.com']);
-        global $email;
         $email = 'foo@example.com';
-        self::assertEquals('ROLE_USER', Role::getRole());
+        $user = new User($email);
+        self::assertEquals('ROLE_USER', $user->getRole());
     }
 
     /**
@@ -68,9 +68,9 @@ class CharacterizationTest extends TestCase
     public function test_Role_role_returns_unknown_for_not_known_user() 
     {
         define('KNOWN_DOMAINS', ['example.com']);
-        global $email;
         $email = 'foo@bar.com';
-        self::assertEquals('ROLE_UNKNOWN', Role::getRole());
+        $user = new User($email);
+        self::assertEquals('ROLE_UNKNOWN', $user->getRole());
     }
 
 }
