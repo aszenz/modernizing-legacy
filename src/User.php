@@ -5,8 +5,12 @@ namespace Gounsch;
 class User
 {
     private $email = null;
+    private $knownDomains = null;
 
-    public function __construct(?string $userEmail = null)
+    public function __construct(
+        ?string $userEmail = null,
+        ?array $knownDomains = null
+    )
     {
         if(null !== $userEmail) {
             $this->email = $userEmail;
@@ -15,6 +19,9 @@ class User
             global $email;
             $this->email = $email;
         }
+        // NOTE: DIDN't assign constant here, because it maybe undefined at this point in time 
+        // and could break old code that initialized user and later defined KNOWN_DOMAINS when calling isKnown() function
+        $this->knownDomains = $knownDomains;
     }
 
     public function getUser(): string
@@ -26,7 +33,7 @@ class User
     {
         $domain = explode('@', $this->email)[1];
 
-        if (in_array($domain, KNOWN_DOMAINS)) {
+        if (in_array($domain, $this->knownDomains ?? KNOWN_DOMAINS)) {
             return true;
         } else {
             return false;

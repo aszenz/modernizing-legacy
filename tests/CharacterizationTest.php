@@ -73,4 +73,33 @@ class CharacterizationTest extends TestCase
         self::assertEquals('ROLE_UNKNOWN', $user->getRole());
     }
 
+    /**
+     * @runInSeparateProcess
+     */
+    public function test_User_domain_for_user_without_global_constant() 
+    {
+        $email = 'foo@bar.com';
+        $user = new User($email, ['bar.com']);
+        self::assertEquals('ROLE_USER', $user->getRole());
+    }
+
+    /**
+     * @runInSeparateProcess
+     */
+    public function test_User_domain_for_admin_without_global_constant() 
+    {
+        $email = 'admin@bar.com';
+        $user = new User($email, ['bar.com']);
+        self::assertEquals('ROLE_ADMIN', $user->getRole());
+    }
+
+    /**
+     * @runInSeparateProcess
+     */
+    public function test_User_domain_for_uknown_without_global_constant() 
+    {
+        $email = 'admin@bar.com';
+        $user = new User($email, ['zar.com']);
+        self::assertEquals('ROLE_UNKNOWN', $user->getRole());
+    }
 }
