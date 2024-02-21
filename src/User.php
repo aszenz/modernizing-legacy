@@ -4,18 +4,22 @@ namespace Gounsch;
 
 class User
 {
-    public function getUser(): string
+    private $email = null;
+
+    public function __construct()
     {
         global $email;
+        $this->email = $email;
+    }
 
-        return explode('@', $email)[0];
+    public function getUser(): string
+    {
+        return explode('@', $this->email)[0];
     }
 
     public function isKnown(): string
     {
-        global $email;
-
-        $domain = explode('@', $email)[1];
+        $domain = explode('@', $this->email)[1];
 
         if (in_array($domain, KNOWN_DOMAINS)) {
             return true;
