@@ -4,18 +4,12 @@ namespace Gounsch;
 
 class Role
 {
-    private User $user;
 
-    private function __construct()
+    private function role(?User $user = new User()): string
     {
-        $this->user = new User();
-    }
-
-    private function role(): string
-    {
-        if ('admin' === $this->user->getUser() && $this->user->isKnown()) {
+        if ('admin' === $user->getUser() && $user->isKnown()) {
             return 'ROLE_ADMIN';
-        } elseif ($this->user->isKnown()) {
+        } elseif ($user->isKnown()) {
             return 'ROLE_USER';
         } else {
             return 'ROLE_UNKNOWN';
